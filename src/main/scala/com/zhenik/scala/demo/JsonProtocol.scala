@@ -4,8 +4,6 @@ import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import com.zhenik.scala.demo.JsonProtocol.{Item, Order}
 import spray.json.DefaultJsonProtocol
 
-
-
 // domain model
 object JsonProtocol {
   final case class Item(name: String, id: Long)

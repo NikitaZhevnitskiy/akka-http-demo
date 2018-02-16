@@ -5,6 +5,7 @@ import org.scalatest._
 import org.scalatest.mockito.MockitoSugar
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
+import org.scalatest.Matchers._
 
 trait BaseServiceTest extends WordSpec with ScalatestRouteTest with MockitoSugar {
 

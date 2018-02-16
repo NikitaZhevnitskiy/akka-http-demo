@@ -18,6 +18,7 @@ object Boot extends App {
     val httpRoute = new Routes(repository)
 
     val bindingFuture = Http().bindAndHandle(httpRoute.route, config.http.host, config.http.port)
+    bindingFuture
   }
 
   startApplication()
