@@ -11,11 +11,13 @@ object Boot extends App {
     implicit val materializer = ActorMaterializer()
     // needed for the future map/flatmap in the end and future in fetchItem and saveOrder
     implicit val executionContext = system.dispatcher
+    val config = Config.load()
+
 
     val repository = new RepositoryImpl()
     val httpRoute = new Routes(repository)
 
-    val bindingFuture = Http().bindAndHandle(httpRoute.route, "localhost", 8080)
+    val bindingFuture = Http().bindAndHandle(httpRoute.route, config.http.host, config.http.port)
   }
 
   startApplication()
