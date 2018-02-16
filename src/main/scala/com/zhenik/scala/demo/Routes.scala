@@ -9,6 +9,20 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class Routes(repository: Repository)(implicit executionContext: ExecutionContext) extends JsonTraitProtocol {
 
+  val itemsRoutes = new ItemsRoutes(repository)
+
+  val route =
+    pathPrefix("healthcheck") {
+      get {
+        complete("OK")
+      }
+    } ~
+      itemsRoutes.route
+
+}
+
+class ItemsRoutes(repository: Repository)(implicit executionContext: ExecutionContext) extends JsonTraitProtocol {
+
   val route =
     get {
       pathPrefix("item" / LongNumber) { id =>

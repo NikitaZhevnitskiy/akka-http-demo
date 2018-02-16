@@ -18,7 +18,8 @@ targetCompatibility = '1.8'
 
 def scalaMajorVersion = '2.12'
 def scalaMinorVersion = '4'
-def akkaVersion = '2.5.8'
+def akkaHttpV = "10.0.11"
+def scalaTestV  = "3.0.5"
 
 repositories {
     mavenCentral()
@@ -33,12 +34,20 @@ dependencies {
             [group: 'org.scala-lang', name: 'scala-library', version: "$scalaMajorVersion.$scalaMinorVersion"],
 
             //Akka
-            [group: 'com.typesafe.akka', name: "akka-http_$scalaMajorVersion", version: "10.0.11"],
-            [group: 'com.typesafe.akka', name: "akka-http-spray-json_$scalaMajorVersion", version: "10.0.11"],
-            [group: 'com.typesafe.akka', name: "akka-http-spray-json_$scalaMajorVersion", version: "10.0.11"],
+            [group: 'com.typesafe.akka', name: "akka-http_$scalaMajorVersion", version: "$akkaHttpV"],
+            [group: 'com.typesafe.akka', name: "akka-http-spray-json_$scalaMajorVersion", version: "$akkaHttpV"],
+            [group: 'com.typesafe.akka', name: "akka-http-spray-json_$scalaMajorVersion", version: "$akkaHttpV"],
 
             // Config
             [group: 'com.github.pureconfig', name: 'pureconfig_2.12', version: '0.9.0']
     )
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile(
+            [group: 'junit', name: 'junit', version: '4.12'],
+            [group: 'org.scalatest', name: 'scalatest_2.12', version: "$scalaTestV"],
+            [group: 'com.typesafe.akka', name: 'akka-http-testkit_2.12', version: "$akkaHttpV"],
+            [group: 'com.softwaremill.sttp', name: 'akka-http-backend_2.12', version: '1.1.5'],
+            [group: 'org.mockito', name: 'mockito-all', version: '1.10.19']
+    )
 }
+
+mainClassName = "com.zhenik.scala.demo.Boot"
