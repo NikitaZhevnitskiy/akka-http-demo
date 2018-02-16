@@ -1,6 +1,5 @@
 package com.zhenik.scala.demo
 
-import com.zhenik.scala.demo.Boot
 import com.softwaremill.sttp._
 import com.softwaremill.sttp.akkahttp.AkkaHttpBackend
 import org.scalatest.Matchers._

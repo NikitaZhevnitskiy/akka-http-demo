@@ -30,8 +30,7 @@ class ItemsRoutes(repository: Repository)(implicit executionContext: ExecutionCo
         get {
           val maybeItems = repository.fetchItems()
           onSuccess(maybeItems) {
-            case Some(items) => complete(items)
-            case None => complete(StatusCodes.NotFound)
+            case items  => complete(items)
           }
         } ~
         post {
@@ -72,34 +71,4 @@ class ItemsRoutes(repository: Repository)(implicit executionContext: ExecutionCo
         }
       }
     }
-
-
-
-
-
-
-
-
-
-//    get {
-//      pathPrefix("item" / LongNumber) { id =>
-//        // there might be no item for a given id
-//        val maybeItem: Future[Option[Item]] = repository.fetchItem(id)
-//
-//        onSuccess(maybeItem) {
-//          case Some(item) => complete(item)
-//          case None => complete(StatusCodes.NotFound)
-//        }
-//      }
-//    } ~
-//      post {
-//        path("create-order") {
-//          entity(as[Order]) { order =>
-//            val saved: Future[Done] = repository.saveOrder(order)
-//            onComplete(saved) { done =>
-//              complete("order created")
-//            }
-//          }
-//        }
-//      }
 }

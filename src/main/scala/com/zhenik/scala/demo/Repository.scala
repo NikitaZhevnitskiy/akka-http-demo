@@ -6,16 +6,16 @@ import com.zhenik.scala.demo.JsonProtocol.{Item, Order}
 import scala.concurrent.{ExecutionContext, Future}
 
 
-sealed trait Repository {
+trait Repository {
   def fetchItem(itemId: Long): Future[Option[Item]]
-  def fetchItems(): Future[Option[List[Item]]]
+  def fetchItems(): Future[List[Item]]
   def saveOrder(order: Order): Future[Done]
   def addItem(item: Item): Future[Option[Long]]
   def updateItem(id:Long, item: Item): Future[Option[Item]]
   def deleteItem(id: Long): Future[Int]
 }
 
-class RepositoryImpl()(implicit executionContext: ExecutionContext) extends Repository {
+class RepositoryImpl(implicit executionContext: ExecutionContext) extends Repository {
 
   var orders: List[Item] = Nil
   // (fake) async database query api
@@ -23,9 +23,10 @@ class RepositoryImpl()(implicit executionContext: ExecutionContext) extends Repo
   def fetchItem(itemId: Long): Future[Option[Item]] = Future {
     orders.find(o => o.id == itemId)
   }
-  def fetchItems(): Future[Option[List[Item]]] = Future {
-    Option.apply(orders)
+  def fetchItems(): Future[List[Item]] = Future {
+    orders
   }
+
   def addItem(item: Item): Future[Option[Long]] = Future{
     orders.find(_.id == item.id) match  {
       case Some(i) => None // id conflict
