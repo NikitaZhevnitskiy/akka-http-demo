@@ -3,7 +3,7 @@ package com.zhenik.scala.demo.item
 import com.zhenik.scala.demo.JsonProtocol.Item
 import com.zhenik.scala.demo.util.db.DatabaseConnector
 
-trait ItemTable {
+private[item] trait ItemTable {
 
   protected val databaseConnector: DatabaseConnector
   import databaseConnector.item.api._

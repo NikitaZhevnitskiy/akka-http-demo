@@ -10,6 +10,8 @@ import scala.concurrent.ExecutionContext
 
 class Routes(itemService: ItemService)(implicit executionContext: ExecutionContext) extends JsonTraitProtocol {
 
+  import StatusCodes._
+
   val itemsRoutes = new ItemsRoutes(itemService)
 
   val route =
@@ -33,11 +35,8 @@ class ItemsRoutes(itemService: ItemService)(implicit executionContext: Execution
         } ~
           post {
             entity(as[Item]) { item =>
-              val saved = itemService.createItem(item)
-              onSuccess(saved) {
-                case Some(it) => complete(s"Item with id:$it was created")
-                case None => complete(StatusCodes.NotFound)
-              }
+           val saved = itemService.createItem(item)
+              onSuccess(saved)(_ => complete(item))
             }
           }
       } ~

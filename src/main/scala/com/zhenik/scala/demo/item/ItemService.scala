@@ -12,7 +12,7 @@ class ItemService(itemRepository: ItemRepository)(implicit executionContext: Exe
   def getItem(id: Long): Future[Option[Item]] =
     itemRepository.fetchItem(id)
 
-  def createItem(item: Item): Future[Option[Long]] =
+  def createItem(item: Item): Future[Item] =
     itemRepository.addItem(item)
 
   def updateItem(id:Long, item: Item): Future[Option[Item]] =

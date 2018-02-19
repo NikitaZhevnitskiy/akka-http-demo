@@ -3,9 +3,9 @@ package com.zhenik.scala.demo
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
-import com.zhenik.scala.demo.item.{ItemRepositoryImpl, ItemService}
+import com.zhenik.scala.demo.item.{ItemRepositoryInMemory, ItemRepositoryPostgres, ItemService}
 import com.zhenik.scala.demo.util.Config
-import com.zhenik.scala.demo.util.db.DatabaseMigrationManager
+import com.zhenik.scala.demo.util.db.{DatabaseConnector, DatabaseMigrationManager}
 
 object Boot extends App {
   def startApplication() = {
@@ -30,8 +30,15 @@ object Boot extends App {
       config.database.password
     ).migrateDatabaseSchema()
 
+    val databaseConnector = new DatabaseConnector(
+      config.database.jdbcUrl,
+      config.database.username,
+      config.database.password
+    )
+
     // dependecies
-    val itemRepository = new ItemRepositoryImpl()
+//    val itemRepository = new ItemRepositoryInMemory()
+    val itemRepository = new ItemRepositoryPostgres(databaseConnector)
     val itemService = new ItemService(itemRepository)
     val httpRoute = new Routes(itemService)
 

@@ -11,31 +11,31 @@ class ItemRepositoryTest extends BaseServiceTest {
 
       "orders is empty" in {
         // Arrange
-        val repository = new ItemRepositoryImpl()
+        val repository = new ItemRepositoryInMemory()
         // Act Assert
         repository.fetchItems().onComplete(items => assert(items.get.isEmpty))
       }
 
       "add item to orders" in {
         // Arrange
-        val repository = new ItemRepositoryImpl()
-        repository.orders=List(Item("name",1))
+        val repository = new ItemRepositoryInMemory()
+        repository.orders=List(Item(1,"name"))
         // Act Assert
         repository.fetchItems().onComplete(items => assert(items.get.nonEmpty))
       }
 
       "fetch item by id" in {
         // Arrange
-        val repository = new ItemRepositoryImpl()
-        repository.addItem(Item("name",1))
+        val repository = new ItemRepositoryInMemory()
+        repository.addItem(Item(1, "name"))
         // Act Assert
         repository.fetchItem(1).onComplete(item => assert(item.get.get.name=="name"))
       }
 
       "fetch item that is not exist" in {
         // Arrange
-        val repository = new ItemRepositoryImpl()
-        repository.addItem(Item("name",1))
+        val repository = new ItemRepositoryInMemory()
+        repository.addItem(Item(1,"name"))
 
         // Act Assert
         try {
