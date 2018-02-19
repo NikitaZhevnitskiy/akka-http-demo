@@ -37,7 +37,7 @@ class ItemRepositoryImpl(implicit executionContext: ExecutionContext) extends It
   }
 
   def updateItem(id: Long, item: Item): Future[Option[Item]] = Future {
-    val replacedItem = Item(item.name,id)
+    val replacedItem = Item(id,item.name)
     orders.indexWhere(_.id == id ) match {
       case -1 =>
         orders = orders :+ replacedItem

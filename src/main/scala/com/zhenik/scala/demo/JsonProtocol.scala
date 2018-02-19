@@ -6,7 +6,7 @@ import spray.json.DefaultJsonProtocol
 
 // domain model
 object JsonProtocol {
-  final case class Item(name: String, id: Long)
+  final case class Item(id: Long, name: String)
   final case class Order(items: List[Item])
 }
 

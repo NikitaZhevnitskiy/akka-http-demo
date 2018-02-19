@@ -38,6 +38,16 @@ dependencies {
             [group: 'com.typesafe.akka', name: "akka-http-spray-json_$scalaMajorVersion", version: "$akkaHttpV"],
             [group: 'com.typesafe.akka', name: "akka-http-spray-json_$scalaMajorVersion", version: "$akkaHttpV"],
 
+            // Postgres
+            [group: 'org.postgresql', name: 'postgresql', version: '42.1.4'],
+            // Connection pool
+            [group: 'com.zaxxer', name: 'HikariCP', version: '2.7.1'],
+            // SQL generator
+            [group: 'com.typesafe.slick', name: 'slick_2.12', version: '3.2.1'],
+            // DB migrator
+            [group: 'org.flywaydb', name: 'flyway-core', version: '4.2.0'],
+
+
             // Config
             [group: 'com.github.pureconfig', name: 'pureconfig_2.12', version: '0.9.0']
     )
