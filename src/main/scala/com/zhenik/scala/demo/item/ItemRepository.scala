@@ -1,4 +1,4 @@
-package com.zhenik.scala.demo
+package com.zhenik.scala.demo.item
 
 import akka.Done
 import com.zhenik.scala.demo.JsonProtocol.{Item, Order}
@@ -6,7 +6,7 @@ import com.zhenik.scala.demo.JsonProtocol.{Item, Order}
 import scala.concurrent.{ExecutionContext, Future}
 
 
-trait Repository {
+trait ItemRepository {
   def fetchItem(itemId: Long): Future[Option[Item]]
   def fetchItems(): Future[List[Item]]
   def saveOrder(order: Order): Future[Done]
@@ -15,7 +15,7 @@ trait Repository {
   def deleteItem(id: Long): Future[Int]
 }
 
-class RepositoryImpl(implicit executionContext: ExecutionContext) extends Repository {
+class ItemRepositoryImpl(implicit executionContext: ExecutionContext) extends ItemRepository {
 
   var orders: List[Item] = Nil
   // (fake) async database query api

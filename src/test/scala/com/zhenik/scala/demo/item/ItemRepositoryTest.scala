@@ -1,8 +1,9 @@
-package com.zhenik.scala.demo
+package com.zhenik.scala.demo.item
 
+import com.zhenik.scala.demo.BaseServiceTest
 import com.zhenik.scala.demo.JsonProtocol.Item
 
-class RepositoryTest extends BaseServiceTest {
+class ItemRepositoryTest extends BaseServiceTest {
 
   "Repository test" when {
 
@@ -10,14 +11,14 @@ class RepositoryTest extends BaseServiceTest {
 
       "orders is empty" in {
         // Arrange
-        val repository = new RepositoryImpl()
+        val repository = new ItemRepositoryImpl()
         // Act Assert
         repository.fetchItems().onComplete(items => assert(items.get.isEmpty))
       }
 
       "add item to orders" in {
         // Arrange
-        val repository = new RepositoryImpl()
+        val repository = new ItemRepositoryImpl()
         repository.orders=List(Item("name",1))
         // Act Assert
         repository.fetchItems().onComplete(items => assert(items.get.nonEmpty))
@@ -25,7 +26,7 @@ class RepositoryTest extends BaseServiceTest {
 
       "fetch item by id" in {
         // Arrange
-        val repository = new RepositoryImpl()
+        val repository = new ItemRepositoryImpl()
         repository.addItem(Item("name",1))
         // Act Assert
         repository.fetchItem(1).onComplete(item => assert(item.get.get.name=="name"))
@@ -33,7 +34,7 @@ class RepositoryTest extends BaseServiceTest {
 
       "fetch item that is not exist" in {
         // Arrange
-        val repository = new RepositoryImpl()
+        val repository = new ItemRepositoryImpl()
         repository.addItem(Item("name",1))
 
         // Act Assert

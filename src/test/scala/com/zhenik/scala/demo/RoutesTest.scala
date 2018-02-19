@@ -1,6 +1,7 @@
 package com.zhenik.scala.demo
 
 import akka.http.scaladsl.server.Route
+import com.zhenik.scala.demo.item.{ItemRepository, ItemRepositoryImpl}
 import org.scalatest.Matchers._
 
 
@@ -20,7 +21,7 @@ class RoutesTest extends BaseServiceTest {
   }
 
   trait Context {
-    val repository: Repository = mock[RepositoryImpl]
+    val repository: ItemRepository = mock[ItemRepositoryImpl]
     val httpRoute: Route = new Routes(repository).route
   }
 }
